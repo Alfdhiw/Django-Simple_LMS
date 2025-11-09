@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: simple_lms_web
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - ./backend:/app/backend # Mount folder kode lokal ke container
+    ports:
+      - "8000:8000"
+    environment:
+      # Variabel lingkungan Django dasar
+      - DEBUG=True
+      - SECRET_KEY=kunci_rahasia_anda_ganti_ini
+      - DJANGO_ALLOWED_HOSTS=127.0.0.1,localhost

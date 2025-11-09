@@ -1,0 +1,20 @@
+# Django/Python
+*.log
+*.pot
+*.pyc
+__pycache__/
+local_settings.py
+db.sqlite3 # JANGAN UPLOAD DATABASE KE GIT!
+
+# Virtual Environment
+venv/
+.venv/
+ENV/
+
+# Docker Secrets/Environment Variables
+.env
+!requirements.txt # Pastikan requirements.txt tetap di-upload
+
+# Operating System Files
+.DS_Store
+Thumbs.db
