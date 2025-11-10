@@ -1,0 +1,21 @@
+{% extends 'base.html' %} 
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Konfirmasi Penghapusan User</h4>
+        <p>Apakah Anda yakin ingin menghapus user: **{{ user.username }}** (Nama Lengkap: {{ user.fullname|default:"-" }})?</p>
+        <hr>
+        <p class="mb-0">Tindakan ini tidak dapat dibatalkan.</p>
+    </div>
+    
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger me-2">Ya, Hapus User</button>
+        <a href="{% url 'dashboard' %}" class="btn btn-secondary">Batal</a>
+    </form>
+    
+</div>
+{% endblock content %}

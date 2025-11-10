@@ -1,0 +1,5 @@
+username,email,password,fullname
+guru_python,python.teacher@lms.com,secret123,Pak Cipto
+guru_django,django.teacher@lms.com,secret123,Bu Dewi
+murid_1,murid.satu@lms.com,secret123,Anisa
+murid_2,murid.dua@lms.com,secret123,Bima

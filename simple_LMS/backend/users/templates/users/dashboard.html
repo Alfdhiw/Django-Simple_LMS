@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ title }} - simple_LMS{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4">Selamat Datang, {{ fullname }}!</h1>
+    <hr>
+
+    {# Bagian Ringkasan Dashboard (dibiarkan sama) #}
+    <div class="row">
+        {# Ringkasan Akun, Kursus Diajar, Kursus Diikuti... #}
+        {# ... (Kode yang ada di sini sebelumnya) ... #}
+
+        {# Ringkasan Akun #}
+        <div class="col-md-4">
+            <div class="card text-white bg-primary mb-3">
+                <div class="card-header">Detail Akun</div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ request.user.username }}</h5>
+                    <p class="card-text">Email: {{ email }}</p>
+                    <a href="{% url 'logout' %}" class="btn btn-warning btn-sm">Logout</a>
+                </div>
+            </div>
+        </div>
+
+        {# Ringkasan Kursus yang Diajar #}
+        <div class="col-md-4">
+            <div class="card text-white bg-info mb-3">
+                <div class="card-header">Kursus yang Anda Ajar</div>
+                <div class="card-body">
+                    <h1 class="card-title">{{ courses_taught_count }}</h1>
+                    <p class="card-text">Total kursus yang aktif.</p>
+                </div>
+            </div>
+        </div>
+
+        {# Ringkasan Kursus yang Diikuti #}
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">Kursus yang Anda Ikuti</div>
+                <div class="card-body">
+                    <h1 class="card-title">{{ courses_enrolled_count }}</h1>
+                    <p class="card-text">Total kursus yang terdaftar.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mt-5">Daftar Semua User Terdaftar
+        {% if request.user.is_superuser %}
+        <a href="{% url 'user_create' %}" class="btn btn-success btn-sm ms-3">Tambah User</a>
+        {% endif %}
+    </h2>
+    <hr>
+
+    {# === BAGIAN BARU: DAFTAR SEMUA USER === #}
+    {% if all_users %}
+    <div class="table-responsive">
+        <table class="table table-striped table-hover">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user_data in all_users %}
+                <tr>
+                    <td>{{ user_data.pk }}</td>
+                    <td>{{ user_data.username }}</td>
+                    <td>{{ user_data.email }}</td>
+                    <td>
+                        {% if request.user.is_superuser %}
+                        <a href="{% url 'user_update' pk=user_data.pk %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'user_delete' pk=user_data.pk %}" class="btn btn-danger btn-sm">Hapus</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="alert alert-info">Tidak ada user lain yang terdaftar selain Anda.</p>
+    {% endif %}
+    {# ======================================= #}
+
+    <h2 class="mt-5">5 Kursus Terakhir yang Anda Ikuti</h2>
+    {# ... (Kode yang menampilkan enrollment sebelumnya) ... #}
+
+    {% if enrollments %}
+    <ul class="list-group">
+        {% for enrollment in enrollments %}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            {{ enrollment.course.name }}
+            <span class="badge bg-secondary rounded-pill">{{ enrollment.role }}</span>
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="alert alert-secondary">Anda belum terdaftar di kursus manapun.</p>
+    {% endif %}
+
+</div>
+{% endblock content %}

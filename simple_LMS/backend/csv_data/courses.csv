@@ -1,0 +1,4 @@
+name,description,price,teacher_username
+Fundamental Python,Pengenalan dasar pemrograman Python dan sintaks,300000,guru_python
+Advanced Django,Membuat API dan deployment aplikasi Django,500000,guru_django
+Database Essentials,Dasar-dasar query SQL untuk pemula,250000,guru_python

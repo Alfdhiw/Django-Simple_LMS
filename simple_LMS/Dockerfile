@@ -8,6 +8,12 @@ ENV PYTHONUNBUFFERED 1
 # Tetapkan direktori kerja di dalam container
 WORKDIR /app/backend
 
+# --- AWAL: Penambahan untuk menginstal sqlite3 CLI ---
+RUN apt-get update && \
+    apt-get install -y sqlite3 && \
+    rm -rf /var/lib/apt/lists/*
+# --- AKHIR: Penambahan untuk menginstal sqlite3 CLI ---
+
 # Instal dependensi Python
 COPY backend/requirements.txt /app/backend/
 RUN pip install --no-cache-dir -r requirements.txt
